@@ -3,3 +3,11 @@
 
 # Ignore Gradle build output directory
 build
+
+#ignore java lsp folders
+.settings
+.vscode
+.project
+app/.classpath
+app/.settings
+app/.project
