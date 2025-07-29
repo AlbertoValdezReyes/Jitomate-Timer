@@ -1,7 +1,6 @@
-package org.example;
+package com.jitomate;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javafx.application.Application;
@@ -17,7 +16,7 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage stage) throws IOException {
-		URL fxmlURL = App.class.getResource("primary.fxml");
+		URL fxmlURL = App.class.getResource("views/primary.fxml");
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(fxmlURL);
