@@ -6,7 +6,7 @@ import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -20,7 +20,7 @@ public class App extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(fxmlURL);
-		Pane root = (Pane) loader.load();
+		TabPane root = (TabPane) loader.load();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Jitomate-Timer");
