@@ -4,9 +4,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class PrimaryControler {
-    private Timer timer = new Timer(50);
     @FXML
     private Label displayTime;
 
@@ -14,14 +14,22 @@ public class PrimaryControler {
     private Button btnStart;
 
     @FXML
-    private Button btnStop;
+    private  Button btnStop;
 
     @FXML
-    private  Button btnReset;
+    private  Button btnSkip;
 
-    public void handleBtnStartAction () {
-        timer.start();
+    @FXML
+    private TextField lblMinutes;
 
+    private Timer timer;
+
+    @FXML
+    public void initialize() {
+        timer = new Timer(Integer.parseInt(lblMinutes.getText()));
+    }
+
+    private void updateTimer() {
         new Thread(() -> {
             try {
                 while(timer.isRunning()) {
@@ -35,7 +43,37 @@ public class PrimaryControler {
         }).start();
     }
 
-    public void handleBtnStopAction() {
-        timer.stop();
+    boolean clicked = false;
+    public void handleBtnStartAction() {
+
+        if(timer.isRunning() && clicked) {
+            timer.setRunning(false);
+            btnStart.setText("Start");
+            updateTimer();
+        }
+        else if(!timer.isRunning() && clicked) {
+           timer.setRunning(true);
+           btnStart.setText("Pause");
+           updateTimer();
+        }
+        else if(!timer.isRunning() && !clicked) {
+            timer.start();
+            updateTimer();
+            btnStart.setText("Pause");
+            clicked = true;
+        }
+
+
+
     }
+
+    public void handleBtnStopAction() {
+        timer.start();
+        updateTimer();
+    }
+
+    public void handleBtnSkipAction() {
+
+    }
+
 }

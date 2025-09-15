@@ -32,12 +32,12 @@ public class Timer {
     }
 
     public void stop() {
-        this.isRunning = false;
+        this.isRunning = !this.isRunning;
     }
 
     public void reset() {
         this.isRunning = false;
-        this.startTime = 0;
+        this.start();
     }
 
     public boolean isFinished() {
@@ -76,5 +76,9 @@ public class Timer {
 
     public void setTimerState(State state) {
         this.TimerState = state;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }
