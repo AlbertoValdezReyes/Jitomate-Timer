@@ -31,8 +31,11 @@ public class PrimaryController {
 
     @FXML
     public void initialize() {
+        /* Set the default time to 60 minutes */
+        tfMinutes.setText("60");
+
         EventHandler<ActionEvent> updateTimer = e -> {
-            displayTime.setText(timer.displayCurrentTimer());
+            displayTime.setText(timer.getRemainingFormatedTime());
         };
 
         timerAnimation = new Timeline(
@@ -46,7 +49,7 @@ public class PrimaryController {
 
     public void handleBtnStartAction() {
         timer = new Timer(Integer.parseInt(tfMinutes.getText()));
-        displayTime.setText(timer.displayCurrentTimer());
+        displayTime.setText(timer.getRemainingFormatedTime());
         timer.start();
         timerAnimation.play();
     }

@@ -52,7 +52,7 @@ public class Timer {
         return Math.max(0, totalDurationInSeconds - elapsedTimeInSeconds);
     }
 
-    public String displayCurrentTimer() {
+    public String getRemainingFormatedTime() {
         long remainingTime = getRemainingTimeInSeconds();
 
         long hours = remainingTime / 3600;
