@@ -40,7 +40,7 @@
                                                     </HBox.margin>
                                                 </Button>
 
-                                                <Button fx:id="btnStop" mnemonicParsing="false" onAction="#handleBtnStopAction" text="Reset" />
+                                                <Button fx:id="btnReset" mnemonicParsing="false" onAction="#handleBtnResetAction" text="Reset" />
 
                                                 <Button fx:id="btnSkip" mnemonicParsing="false" onAction="#handleBtnSkipAction" text="Skip" />
                                             </children>
@@ -60,10 +60,19 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label contentDisplay="CENTER" text="Minutes" textAlignment="CENTER" />
+                                <Label contentDisplay="CENTER" text="Focus:" textAlignment="CENTER" />
                                 <TextField fx:id="tfFocus" GridPane.columnIndex="1" />
+                        <Label text="Short Break:" GridPane.rowIndex="1" />
+                        <Label text="Long Break:" GridPane.rowIndex="2" />
+                        <Label text="Number of Sessions" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfShortBreak" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfLongBreak" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfNumberOfSessions" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
                             <opaqueInsets>
                                 <Insets />
