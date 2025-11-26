@@ -24,7 +24,13 @@ public class PrimaryController {
     private  Button btnSkip;
 
     @FXML
-    private TextField tfMinutes;
+    private TextField tfFocus;
+    @FXML
+    private TextField tfShortBreak;
+    @FXML
+    private TextField tfLongBreak;
+    @FXML
+    private TextField tfNumberOfSessions;
 
     private Timer timer;
     private Timeline timerAnimation;
@@ -32,7 +38,7 @@ public class PrimaryController {
     @FXML
     public void initialize() {
         /* Set the default time to 60 minutes */
-        tfMinutes.setText("60");
+        tfFocus.setText("60");
 
         EventHandler<ActionEvent> updateTimer = e -> {
             displayTime.setText(timer.getRemainingFormatedTime());
@@ -44,11 +50,8 @@ public class PrimaryController {
         timerAnimation.setCycleCount(Timeline.INDEFINITE);
     }
 
-
-    boolean clicked = false;
-
     public void handleBtnStartAction() {
-        timer = new Timer(Integer.parseInt(tfMinutes.getText()));
+        timer = new Timer(Integer.parseInt(tfFocus.getText()));
         displayTime.setText(timer.getRemainingFormatedTime());
         timer.start();
         timerAnimation.play();
@@ -67,5 +70,4 @@ public class PrimaryController {
             timer = null;
         }
     }
-
 }

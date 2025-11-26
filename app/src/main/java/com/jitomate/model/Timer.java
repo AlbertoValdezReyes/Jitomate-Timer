@@ -1,14 +1,16 @@
 package com.jitomate.model;
 
 public class Timer {
-    private State TimerState;
+    private State currentState;
     private long startTime;
     private long totalDurationInSeconds;
     private boolean isRunning;
 
-    enum State {
+    /* Specifies the state the timer is currently on*/
+    public enum State {
         WORK,
-        BREAK,
+        SHORT_BREAK,
+        LONG_BREAK,
         STOPPED
     }
 
@@ -28,7 +30,7 @@ public class Timer {
     public void start() {
         this.startTime = System.currentTimeMillis();
         this.isRunning = true;
-        TimerState = State.WORK;
+        this.currentState= State.WORK;
     }
 
     public void stop() {
@@ -71,11 +73,11 @@ public class Timer {
     }
 
     public State getTimerState() {
-        return TimerState;
+        return currentState;
     }
 
-    public void setTimerState(State state) {
-        this.TimerState = state;
+    public void setCurrentState(State state) {
+        this.currentState = state;
     }
 
     public void setRunning(boolean running) {
