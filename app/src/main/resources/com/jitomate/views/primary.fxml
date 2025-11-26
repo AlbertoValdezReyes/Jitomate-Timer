@@ -2,10 +2,9 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="336.0" stylesheets="@../../../css/label_background.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jitomate.controller.PrimaryController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="336.0" stylesheets="@../../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jitomate.controller.PrimaryController">
     <children>
         <TabPane prefHeight="400.0" prefWidth="141.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -13,36 +12,19 @@
                     <content>
                         <VBox alignment="CENTER" prefHeight="283.2" prefWidth="336.0">
                             <children>
-                                <StackPane prefHeight="207.0" prefWidth="336.0">
+                                <StackPane prefHeight="207.0" prefWidth="336.0" styleClass="panel-tomato">
                                     <children>
-                                        <ImageView fitHeight="196.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../../images/tomato.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label fx:id="displayTime" styleClass="label_background-info" text="Start" textFill="#3d3b3b" />
+                                        <Label fx:id="displayTime" styleClass="label_background-info" text="25:00" textFill="#3d3b3b" />
                                     </children>
                                 </StackPane>
 
-                                <StackPane prefHeight="114.0" prefWidth="336.0">
+                                <StackPane prefHeight="114.0" prefWidth="336.0" styleClass="panel-picnic">
                                     <children>
-                                        <ImageView fitHeight="87.0" fitWidth="609.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../../images/picnic.png" />
-                                            </image>
-                                        </ImageView>
-
-                                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="336.0" spacing="10.0">
+                                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="336.0" spacing="15.0">
                                             <children>
-                                                <Button fx:id="btnStart" mnemonicParsing="false" onAction="#handleBtnStartAction" text="Start">
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin>
-                                                </Button>
-
-                                                <Button fx:id="btnReset" mnemonicParsing="false" onAction="#handleBtnResetAction" text="Reset" />
-
-                                                <Button fx:id="btnSkip" mnemonicParsing="false" onAction="#handleBtnSkipAction" text="Skip" />
+                                                <Button fx:id="btnStart" mnemonicParsing="false" onAction="#handleBtnStartAction" styleClass="button-picnic" text="Start" />
+                                                <Button fx:id="btnReset" mnemonicParsing="false" onAction="#handleBtnResetAction" styleClass="button-picnic" text="Reset" />
+                                                <Button fx:id="btnSkip" mnemonicParsing="false" onAction="#handleBtnSkipAction" styleClass="button-picnic" text="Skip" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -51,32 +33,33 @@
                         </VBox>
                     </content>
                 </Tab>
+
                 <Tab text="Settings">
                     <content>
-                        <GridPane alignment="CENTER">
+                        <GridPane alignment="CENTER" styleClass="panel-settings">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label contentDisplay="CENTER" text="Focus:" textAlignment="CENTER" />
-                                <TextField fx:id="tfFocus" GridPane.columnIndex="1" />
-                        <Label text="Short Break:" GridPane.rowIndex="1" />
-                        <Label text="Long Break:" GridPane.rowIndex="2" />
-                        <Label text="Number of Sessions" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfShortBreak" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfLongBreak" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfNumberOfSessions" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label contentDisplay="CENTER" text="Focus (min):" textAlignment="CENTER" />
+                                <TextField fx:id="tfFocus" text="25" GridPane.columnIndex="1" />
+
+                                <Label text="Short Break (min):" GridPane.rowIndex="1" />
+                                <TextField fx:id="tfShortBreak" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                <Label text="Long Break (min):" GridPane.rowIndex="2" />
+                                <TextField fx:id="tfLongBreak" text="15" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                <Label text="Sessions:" GridPane.rowIndex="3" />
+                                <TextField fx:id="tfNumberOfSessions" text="4" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
                             <padding>
                                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                             </padding>
