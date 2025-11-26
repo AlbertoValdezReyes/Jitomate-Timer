@@ -116,4 +116,12 @@ public class Timer {
 
     public State getCurrentState() { return currentState; }
     public boolean isRunning() { return isRunning; }
+
+    public int getSessionsTarget() {
+        return sessionsTarget;
+    }
+
+    public int getSessionsCompleted() {
+        return sessionsCompleted;
+    }
 }

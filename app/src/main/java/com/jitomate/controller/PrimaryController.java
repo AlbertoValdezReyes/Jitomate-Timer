@@ -6,11 +6,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrimaryController {
     // timer tab
     @FXML private Label displayTime;
+    @FXML private HBox sessionsContainer;
     @FXML private Button btnStart;
     @FXML private  Button btnReset;
     @FXML private  Button btnSkip;
@@ -21,9 +28,10 @@ public class PrimaryController {
     @FXML private TextField tfLongBreak;
     @FXML private TextField tfNumberOfSessions;
 
-    // Timer object and animation
+    // logic
     private Timer timer;
     private Timeline timerAnimation;
+    private List<Circle> sessionDots = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -35,6 +43,8 @@ public class PrimaryController {
         tfShortBreak.setText("5");
         tfLongBreak.setText("15");
         tfNumberOfSessions.setText("4");
+
+        initSessionDots();
 
         addConfigListeners();
 
@@ -49,8 +59,25 @@ public class PrimaryController {
         updateUI();
     }
 
+    private void initSessionDots() {
+        sessionsContainer.getChildren().clear();
+        sessionDots.clear();
+
+        int total = timer.getSessionsTarget();
+
+        for (int i = 0; i < total; i++) {
+            Circle dot = new Circle(6); // Radio 6
+            dot.setStroke(Color.GRAY);
+            dot.setFill(Color.TRANSPARENT);
+
+            sessionsContainer.getChildren().add(dot);
+            sessionDots.add(dot);
+        }
+
+        updateSessionDotsVisuals();
+    }
+
     private void addConfigListeners() {
-        // Checks if the user changes the states values
         tfFocus.textProperty().addListener((obs, oldVal, newVal) -> {
             if (isNumeric(newVal)) timer.setFocusConfig(Integer.parseInt(newVal));
         });
@@ -60,10 +87,15 @@ public class PrimaryController {
         tfLongBreak.textProperty().addListener((obs, oldVal, newVal) -> {
             if (isNumeric(newVal)) timer.setLongBreakConfig(Integer.parseInt(newVal));
         });
+
         tfNumberOfSessions.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (isNumeric(newVal)) timer.setSessionsTarget(Integer.parseInt(newVal));
+            if (isNumeric(newVal)) {
+                timer.setSessionsTarget(Integer.parseInt(newVal));
+                initSessionDots(); // Reconstruir la UI de puntos
+            }
         });
     }
+
 
     /* Handles the start button */
     public void handleBtnStartAction() {
@@ -99,6 +131,37 @@ public class PrimaryController {
             case FOCUS -> displayTime.setStyle("-fx-text-fill: black;");
             case SHORT_BREAK -> displayTime.setStyle("-fx-text-fill: green;");
             case LONG_BREAK -> displayTime.setStyle("-fx-text-fill: blue;");
+        }
+        updateSessionDotsVisuals();
+    }
+
+    private void updateSessionDotsVisuals() {
+        if (sessionDots.size() != timer.getSessionsTarget()) {
+            initSessionDots();
+            return;
+        }
+
+        int current = timer.getSessionsCompleted();
+
+        for (int i = 0; i < sessionDots.size(); i++) {
+            Circle dot = sessionDots.get(i);
+
+            if (i < current) {
+                // Past
+                if (dot.getFill() != Color.web("#3d3b3b")) {
+                    dot.setFill(Color.web("#3d3b3b"));
+                }
+            } else if (i == current) {
+                // Present
+                if (timer.getCurrentState() == Timer.State.FOCUS) {
+                    dot.setFill(Color.RED);
+                } else {
+                    dot.setFill(Color.web("#3d3b3b"));
+                }
+            } else {
+                // Future
+                dot.setFill(Color.TRANSPARENT);
+            }
         }
     }
 
