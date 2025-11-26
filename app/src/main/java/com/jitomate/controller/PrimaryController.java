@@ -2,72 +2,108 @@ package com.jitomate.controller;
 import com.jitomate.model.Timer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
-import javafx.event.EventHandler;
 
 public class PrimaryController {
-    @FXML
-    private Label displayTime;
+    // timer tab
+    @FXML private Label displayTime;
+    @FXML private Button btnStart;
+    @FXML private  Button btnReset;
+    @FXML private  Button btnSkip;
 
-    @FXML
-    private Button btnStart;
+    // settings tab
+    @FXML private TextField tfFocus;
+    @FXML private TextField tfShortBreak;
+    @FXML private TextField tfLongBreak;
+    @FXML private TextField tfNumberOfSessions;
 
-    @FXML
-    private  Button btnStop;
-
-    @FXML
-    private  Button btnSkip;
-
-    @FXML
-    private TextField tfFocus;
-    @FXML
-    private TextField tfShortBreak;
-    @FXML
-    private TextField tfLongBreak;
-    @FXML
-    private TextField tfNumberOfSessions;
-
+    // Timer object and animation
     private Timer timer;
     private Timeline timerAnimation;
 
     @FXML
     public void initialize() {
-        /* Set the default time to 60 minutes */
-        tfFocus.setText("60");
+        // Timer object creation
+        timer = new Timer();
 
-        EventHandler<ActionEvent> updateTimer = e -> {
-            displayTime.setText(timer.getRemainingFormatedTime());
-        };
+        // setting default values
+        tfFocus.setText("25");
+        tfShortBreak.setText("5");
+        tfLongBreak.setText("15");
+        tfNumberOfSessions.setText("4");
 
-        timerAnimation = new Timeline(
-                new KeyFrame(Duration.millis(1000), updateTimer)
-        );
+        addConfigListeners();
+
+        // update the ui with an animation for the timer
+        timerAnimation = new Timeline(new KeyFrame(Duration.millis(1000), e -> {
+            timer.tick();
+            updateUI();
+        }));
         timerAnimation.setCycleCount(Timeline.INDEFINITE);
-    }
-
-    public void handleBtnStartAction() {
-        timer = new Timer(Integer.parseInt(tfFocus.getText()));
-        displayTime.setText(timer.getRemainingFormatedTime());
-        timer.start();
         timerAnimation.play();
+
+        updateUI();
     }
 
-    public void handleBtnStopAction() {
-        timer.stop();
-        timerAnimation.stop();
+    private void addConfigListeners() {
+        // Checks if the user changes the states values
+        tfFocus.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (isNumeric(newVal)) timer.setFocusConfig(Integer.parseInt(newVal));
+        });
+        tfShortBreak.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (isNumeric(newVal)) timer.setShortBreakConfig(Integer.parseInt(newVal));
+        });
+        tfLongBreak.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (isNumeric(newVal)) timer.setLongBreakConfig(Integer.parseInt(newVal));
+        });
+        tfNumberOfSessions.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (isNumeric(newVal)) timer.setSessionsTarget(Integer.parseInt(newVal));
+        });
     }
 
-    public void handleBtnSkipAction() {
-        if (timer != null) {
+    /* Handles the start button */
+    public void handleBtnStartAction() {
+        if (timer.isRunning()) {
             timer.stop();
-            timerAnimation.stop();
-            displayTime.setText("00:00:00");
-            timer = null;
+            btnStart.setText("Start");
+        } else {
+            timer.start();
+            btnStart.setText("Stop");
         }
+        updateUI();
+    }
+
+    /* Handles the reset button */
+    public void handleBtnResetAction() {
+        timer.reset();
+        btnStart.setText("Start");
+        updateUI();
+    }
+
+    /* Handles the skip button */
+    public void handleBtnSkipAction() {
+        timer.skip();
+        btnStart.setText("Start");
+        updateUI();
+    }
+
+    private void updateUI() {
+        displayTime.setText(timer.getFormattedTime());
+
+        // Visual feedback
+        switch (timer.getCurrentState()) {
+            case FOCUS -> displayTime.setStyle("-fx-text-fill: black;");
+            case SHORT_BREAK -> displayTime.setStyle("-fx-text-fill: green;");
+            case LONG_BREAK -> displayTime.setStyle("-fx-text-fill: blue;");
+        }
+    }
+
+    /* Checks if the values are numeric*/
+    private boolean isNumeric(String str) {
+        return str != null && str.matches("\\d+");
     }
 }

@@ -1,86 +1,119 @@
 package com.jitomate.model;
 
 public class Timer {
-    private State currentState;
-    private long startTime;
-    private long totalDurationInSeconds;
-    private boolean isRunning;
-
-    /* Specifies the state the timer is currently on*/
+    /* Specifies the state the timer is currently on */
     public enum State {
-        WORK,
+        FOCUS,
         SHORT_BREAK,
         LONG_BREAK,
         STOPPED
     }
 
-    public Timer(int hours, int minutes, int seconds) {
-        this.totalDurationInSeconds = hours * 3600L + minutes * 60L + seconds;
-        this.isRunning = false;
+    /* Current state */
+    private State currentState;
+    private long remainingSeconds;
+    private int sessionsCompleted = 0;
+    private boolean isRunning = false;
+
+    /* Default values */
+    private int focusMinutes = 25;
+    private int shortBreakMinutes = 5;
+    private int longBreakMinutes = 15;
+    private int sessionsTarget = 4;
+
+    /* Constructor of Timer */
+    public Timer() {
+        this.currentState = State.STOPPED;
+        this.remainingSeconds = focusMinutes * 60L;
     }
 
-    public Timer(int hours, int minutes) {
-        this(hours, minutes, 0);
+    /* Setter methods for the states durations */
+    public void setFocusConfig(int minutes) { this.focusMinutes = minutes; }
+    public void setShortBreakConfig(int minutes) { this.shortBreakMinutes = minutes; }
+    public void setLongBreakConfig(int minutes) { this.longBreakMinutes = minutes; }
+    public void setSessionsTarget(int count) { this.sessionsTarget = count; }
+
+    /* Tick function to count time */
+    public void tick() {
+        if (!isRunning) return;
+
+        if (remainingSeconds > 0) {
+            remainingSeconds--;
+        } else {
+            nextState();
+        }
     }
 
-    public Timer(int minutes) {
-        this(0, minutes, 0);
+    /* Switching to the next state */
+    public void nextState() {
+        isRunning = false;
+
+        switch (currentState) {
+            case FOCUS:
+                sessionsCompleted++;
+                if (sessionsCompleted >= sessionsTarget) {
+                    currentState = State.LONG_BREAK;
+                    remainingSeconds = longBreakMinutes * 60L;
+                    sessionsCompleted = 0; // Reiniciamos contador de sesiones
+                } else {
+                    currentState = State.SHORT_BREAK;
+                    remainingSeconds = shortBreakMinutes * 60L;
+                }
+                break;
+
+            case SHORT_BREAK:
+            case LONG_BREAK:
+            case STOPPED:
+                currentState = State.FOCUS;
+                remainingSeconds = focusMinutes * 60L;
+                break;
+        }
     }
+
+    // Controls
 
     public void start() {
-        this.startTime = System.currentTimeMillis();
-        this.isRunning = true;
-        this.currentState= State.WORK;
+        if (currentState == State.STOPPED) {
+            currentState = State.FOCUS;
+            remainingSeconds = focusMinutes * 60L;
+        }
+        isRunning = true;
     }
 
     public void stop() {
-        this.isRunning = !this.isRunning;
+        isRunning = false;
+    }
+
+    public void skip() {
+        nextState();
     }
 
     public void reset() {
-        this.isRunning = false;
-        this.start();
+        isRunning = false; // stops the timer
+
+        switch (currentState) {
+            case FOCUS:
+                remainingSeconds = focusMinutes * 60L;
+                break;
+            case SHORT_BREAK:
+                remainingSeconds = shortBreakMinutes * 60L;
+                break;
+            case LONG_BREAK:
+                remainingSeconds = longBreakMinutes * 60L;
+                break;
+            default:
+                remainingSeconds = focusMinutes * 60L; // Fallback
+                break;
+        }
     }
 
-    public boolean isFinished() {
-        if (!isRunning) return false;
-        return getRemainingTimeInSeconds() <= 0;
+    /* Returns the remaining formated time of the timer */
+    public String getFormattedTime() {
+        long minutes = remainingSeconds / 60;
+        long seconds = remainingSeconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
     }
 
-    public long getRemainingTimeInSeconds() {
-        if (!isRunning) return totalDurationInSeconds;
-
-        long elapsedTimeInSeconds = (System.currentTimeMillis() - startTime) / 1000;
-        return Math.max(0, totalDurationInSeconds - elapsedTimeInSeconds);
-    }
-
-    public String getRemainingFormatedTime() {
-        long remainingTime = getRemainingTimeInSeconds();
-
-        long hours = remainingTime / 3600;
-        long minutes = (remainingTime % 3600) / 60;
-        long seconds = remainingTime % 60;
-
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    private void setStartTime() {
-        this.startTime = System.currentTimeMillis();
-    }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
-
-    public State getTimerState() {
-        return currentState;
-    }
-
-    public void setCurrentState(State state) {
-        this.currentState = state;
-    }
-
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
+    public State getCurrentState() { return currentState; }
+    public boolean isRunning() { return isRunning; }
 }

@@ -6,69 +6,75 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="336.0" stylesheets="@../../../css/label_background.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jitomate.controller.PrimaryController">
-   <children>
-      <TabPane prefHeight="400.0" prefWidth="141.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Timer">
-            <content>
-                  <VBox alignment="CENTER" prefHeight="283.2" prefWidth="336.0">
-                     <children>
-                        <StackPane prefHeight="207.0" prefWidth="336.0">
-                           <children>
-                              <ImageView fitHeight="196.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../images/tomato.png" />
-                                 </image></ImageView>
-                              <Label fx:id="displayTime" styleClass="label_background-info" text="Start" textFill="#3d3b3b" />
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="114.0" prefWidth="336.0">
-                           <children>
-                              <ImageView fitHeight="87.0" fitWidth="609.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../images/picnic.png" />
-                                 </image></ImageView>
-                              <HBox alignment="CENTER" prefHeight="47.0" prefWidth="336.0" spacing="10.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#handleBtnStartAction" text="Start">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#handleBtnStopAction" text="Stop" />
-                                    <Button mnemonicParsing="false" onAction="#handleBtnSkipAction" text="Skip" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </StackPane>
-                     </children>
-                  </VBox>
-            </content>
-          </Tab>
-          <Tab text="Settings">
-            <content>
-                  <GridPane alignment="CENTER">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label contentDisplay="CENTER" text="Minutes" textAlignment="CENTER" />
-                        <TextField fx:id="tfMinutes" GridPane.columnIndex="1" />
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
-                  </GridPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+    <children>
+        <TabPane prefHeight="400.0" prefWidth="141.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Timer">
+                    <content>
+                        <VBox alignment="CENTER" prefHeight="283.2" prefWidth="336.0">
+                            <children>
+                                <StackPane prefHeight="207.0" prefWidth="336.0">
+                                    <children>
+                                        <ImageView fitHeight="196.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../images/tomato.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="displayTime" styleClass="label_background-info" text="Start" textFill="#3d3b3b" />
+                                    </children>
+                                </StackPane>
+
+                                <StackPane prefHeight="114.0" prefWidth="336.0">
+                                    <children>
+                                        <ImageView fitHeight="87.0" fitWidth="609.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../images/picnic.png" />
+                                            </image>
+                                        </ImageView>
+
+                                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="336.0" spacing="10.0">
+                                            <children>
+                                                <Button fx:id="btnStart" mnemonicParsing="false" onAction="#handleBtnStartAction" text="Start">
+                                                    <HBox.margin>
+                                                        <Insets />
+                                                    </HBox.margin>
+                                                </Button>
+
+                                                <Button fx:id="btnStop" mnemonicParsing="false" onAction="#handleBtnStopAction" text="Reset" />
+
+                                                <Button fx:id="btnSkip" mnemonicParsing="false" onAction="#handleBtnSkipAction" text="Skip" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Settings">
+                    <content>
+                        <GridPane alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label contentDisplay="CENTER" text="Minutes" textAlignment="CENTER" />
+                                <TextField fx:id="tfFocus" GridPane.columnIndex="1" />
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <padding>
+                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </GridPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </StackPane>
