@@ -2,32 +2,45 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="336.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jitomate.controller.PrimaryController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="336.0" stylesheets="@../../../css/label_background.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jitomate.controller.PrimaryController">
    <children>
       <TabPane prefHeight="400.0" prefWidth="141.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Timer">
             <content>
-                  <VBox alignment="CENTER" prefHeight="356.0" prefWidth="564.0">
+                  <VBox alignment="CENTER" prefHeight="283.2" prefWidth="336.0">
                      <children>
                         <StackPane prefHeight="207.0" prefWidth="336.0">
                            <children>
-                              <Label fx:id="displayTime" text="Start" />
+                              <ImageView fitHeight="196.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/tomato.png" />
+                                 </image></ImageView>
+                              <Label fx:id="displayTime" styleClass="label_background-info" text="Start" textFill="#3d3b3b" />
                            </children>
                         </StackPane>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="SOMETIMES">
+                        <StackPane prefHeight="114.0" prefWidth="336.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleBtnStartAction" text="Start">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#handleBtnStopAction" text="Stop" />
-                              <Button mnemonicParsing="false" onAction="#handleBtnSkipAction" text="Skip" />
+                              <ImageView fitHeight="87.0" fitWidth="609.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/picnic.png" />
+                                 </image></ImageView>
+                              <HBox alignment="CENTER" prefHeight="47.0" prefWidth="336.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#handleBtnStartAction" text="Start">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#handleBtnStopAction" text="Stop" />
+                                    <Button mnemonicParsing="false" onAction="#handleBtnSkipAction" text="Skip" />
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </StackPane>
                      </children>
                   </VBox>
             </content>
@@ -41,19 +54,10 @@
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label contentDisplay="CENTER" text="Focus:" textAlignment="CENTER" />
-                        <TextField fx:id="tfFocus" GridPane.columnIndex="1" />
-                        <Label text="Short Break:" GridPane.rowIndex="1" />
-                        <Label text="Long Break:" GridPane.rowIndex="2" />
-                        <Label text="Number of Sessions:" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfShortBreak" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfLongBreak" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfNumberOfSessions" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label contentDisplay="CENTER" text="Minutes" textAlignment="CENTER" />
+                        <TextField fx:id="tfMinutes" GridPane.columnIndex="1" />
                      </children>
                      <opaqueInsets>
                         <Insets />
