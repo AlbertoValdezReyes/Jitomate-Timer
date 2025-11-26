@@ -1,0 +1,13 @@
+.label_background-info {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+
+    -fx-text-fill: #333333;
+
+    -fx-background-radius: 6px;
+
+    -fx-padding: 4px 12px 4px 12px;
+
+    -fx-font-weight: bold;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
