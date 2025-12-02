@@ -49,6 +49,16 @@
     -fx-background-radius: 6px;
 }
 
+#lblSessionState {
+    -fx-font-size: 12px;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+
+    -fx-padding: 4px 12px;
+    -fx-background-radius: 6px;
+}
+
 .tab-header-background {
     -fx-background-color: transparent;
 }

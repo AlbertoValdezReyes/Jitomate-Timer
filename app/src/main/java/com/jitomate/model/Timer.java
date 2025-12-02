@@ -115,6 +115,23 @@ public class Timer {
     }
 
     public State getCurrentState() { return currentState; }
+    public String getCurrentStateString() {
+        switch (currentState) {
+            case FOCUS -> {
+                return "FOCUS";
+            }
+            case SHORT_BREAK -> {
+                return "SHORT BREAK";
+            }
+            case LONG_BREAK -> {
+                return "LONG BREAK";
+            }
+            case STOPPED -> {
+                return "";
+            }
+        }
+        return "";
+    }
     public boolean isRunning() { return isRunning; }
 
     public int getSessionsTarget() {

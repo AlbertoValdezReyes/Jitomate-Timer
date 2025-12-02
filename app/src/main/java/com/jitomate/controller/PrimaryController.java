@@ -18,9 +18,10 @@ public class PrimaryController {
     // timer tab
     @FXML private Label displayTime;
     @FXML private HBox sessionsContainer;
+    @FXML private Label lblSessionState;
     @FXML private Button btnStart;
-    @FXML private  Button btnReset;
-    @FXML private  Button btnSkip;
+    @FXML private Button btnReset;
+    @FXML private Button btnSkip;
 
     // settings tab
     @FXML private TextField tfFocus;
@@ -132,6 +133,7 @@ public class PrimaryController {
             case SHORT_BREAK -> displayTime.setStyle("-fx-text-fill: green;");
             case LONG_BREAK -> displayTime.setStyle("-fx-text-fill: blue;");
         }
+        lblSessionState.setText(timer.getCurrentStateString());
         updateSessionDotsVisuals();
     }
 
