@@ -92,7 +92,7 @@ public class PrimaryController {
         tfNumberOfSessions.textProperty().addListener((obs, oldVal, newVal) -> {
             if (isNumeric(newVal)) {
                 timer.setSessionsTarget(Integer.parseInt(newVal));
-                initSessionDots(); // Reconstruir la UI de puntos
+                initSessionDots(); // Rebuild dots
             }
         });
     }
