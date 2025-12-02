@@ -121,7 +121,7 @@ public class Timer {
                 return "FOCUS";
             }
             case SHORT_BREAK -> {
-                return "SHORT BREAK";
+                return "BREAK";
             }
             case LONG_BREAK -> {
                 return "LONG BREAK";

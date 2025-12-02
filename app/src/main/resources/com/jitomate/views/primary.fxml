@@ -33,7 +33,7 @@
                            </children>
                                 </HBox>
 
-                                <StackPane prefHeight="114.0" prefWidth="336.0" styleClass="panel-picnic">
+                                <StackPane prefHeight="111.0" prefWidth="336.0" styleClass="panel-picnic">
                                     <children>
                                         <HBox alignment="CENTER" prefHeight="47.0" prefWidth="336.0" spacing="15.0">
                                             <children>
