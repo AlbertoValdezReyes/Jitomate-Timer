@@ -54,7 +54,7 @@ public class Timer {
                 if (sessionsCompleted >= sessionsTarget) {
                     currentState = State.LONG_BREAK;
                     remainingSeconds = longBreakMinutes * 60L;
-                    sessionsCompleted = 0; // Reiniciamos contador de sesiones
+                    sessionsCompleted = 0;
                 } else {
                     currentState = State.SHORT_BREAK;
                     remainingSeconds = shortBreakMinutes * 60L;
