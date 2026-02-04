@@ -132,6 +132,7 @@ public class PrimaryController {
             case FOCUS -> displayTime.setStyle("-fx-text-fill: black;");
             case SHORT_BREAK -> displayTime.setStyle("-fx-text-fill: green;");
             case LONG_BREAK -> displayTime.setStyle("-fx-text-fill: blue;");
+            case STOPPED -> displayTime.setStyle("-fx-text-fill: red;");
         }
         lblSessionState.setText(timer.getCurrentStateString());
         updateSessionDotsVisuals();
